@@ -6,6 +6,8 @@ enum VotingOptions {
     CandidateTwo
 }
 
+error InvalidCandidate();
+
 contract SimpleVoting {
     address public candidade1;
     address public candidade2;
@@ -18,6 +20,8 @@ contract SimpleVoting {
             votesCandidateOne += 1;
         } else if(candidate == candidade2) {
             votesCandidateOne++;
-        } 
+        } else {
+            revert InvalidCandidate();
+        }
     }
 }
