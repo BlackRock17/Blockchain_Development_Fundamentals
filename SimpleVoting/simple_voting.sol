@@ -11,8 +11,8 @@ error InvalidCandidate();
 contract SimpleVoting {
     bool public votingEnded = false;
 
-    address public candidade1;
-    address public candidade2;
+    address public candidade1 = 0xAb8483F64d9C6d1EcF9b849Ae677dD3315835cb2;
+    address public candidade2 = 0x4B20993Bc481177ec7E8f571ceCaE8A9e22C02db;
 
     uint public votesCandidateOne;
     uint public votesCandidateTwo;
