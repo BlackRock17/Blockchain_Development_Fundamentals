@@ -23,6 +23,7 @@ contract SimpleVoting {
 
     function vote(address candidate) external {
         require(!votingEnded, "Voting has already ended!");
+
         if(candidate == candidade1) {
             votesCandidateOne += 1;
         } else if(candidate == candidade2) {
@@ -34,7 +35,9 @@ contract SimpleVoting {
 
     function chooseWinner() external {
         require(msg.sender == owner, "Not owner");
-
+        
+        votingEnded = true;
+        
         if(votesCandidateOne > votesCandidateTwo) {
             winner = candidade1;
         } else if(votesCandidateTwo > votesCandidateOne) {
