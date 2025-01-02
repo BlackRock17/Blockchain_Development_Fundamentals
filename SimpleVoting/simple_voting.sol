@@ -7,14 +7,17 @@ enum VotingOptions {
 }
 
 contract SimpleVoting {
-    uint256 public candidade1;
-    uint256 public candidade2;
+    address public candidade1;
+    address public candidade2;
 
-    function vote(VotingOptions candidate) external {
-        if(candidate == VotingOptions.CandidateOne) {
-            candidade1 += 1;
-        } else if(candidate == VotingOptions.CandidateTwo) {
-            candidade2++;
+    uint public votesCandidateOne;
+    uint public votesCandidateTwo;
+
+    function vote(address candidate) external {
+        if(candidate == candidade1) {
+            votesCandidateOne += 1;
+        } else if(candidate == candidade2) {
+            votesCandidateOne++;
         } 
     }
 }
