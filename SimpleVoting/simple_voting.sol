@@ -9,6 +9,7 @@ enum VotingOptions {
 error InvalidCandidate();
 
 contract SimpleVoting {
+    bool public votingEnded = false;
     address public candidade1;
     address public candidade2;
 
@@ -16,6 +17,7 @@ contract SimpleVoting {
     uint public votesCandidateTwo;
 
     function vote(address candidate) external {
+        require(!votingEnded, "Voting has already ended!");
         if(candidate == candidade1) {
             votesCandidateOne += 1;
         } else if(candidate == candidade2) {
