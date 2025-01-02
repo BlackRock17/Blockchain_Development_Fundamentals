@@ -10,11 +10,16 @@ error InvalidCandidate();
 
 contract SimpleVoting {
     bool public votingEnded = false;
+
     address public candidade1;
     address public candidade2;
 
     uint public votesCandidateOne;
     uint public votesCandidateTwo;
+
+    address public owner = 0x5B38Da6a701c568545dCfcB03FcB875f56beddC4;
+
+    address winner;
 
     function vote(address candidate) external {
         require(!votingEnded, "Voting has already ended!");
@@ -24,6 +29,18 @@ contract SimpleVoting {
             votesCandidateOne++;
         } else {
             revert InvalidCandidate();
+        }
+    }
+
+    function chooseWinner() external {
+        require(msg.sender == owner, "Not owner");
+
+        if(votesCandidateOne > votesCandidateTwo) {
+            winner = candidade1;
+        } else if(votesCandidateTwo > votesCandidateOne) {
+            winner = candidade2;
+        } else {
+            revert("More voting needed");
         }
     }
 }
