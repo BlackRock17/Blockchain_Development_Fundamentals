@@ -26,7 +26,7 @@ contract SimpleVoting {
         if(candidate == candidade1) {
             votesCandidateOne += 1;
         } else if(candidate == candidade2) {
-            votesCandidateOne++;
+            votesCandidateTwo++;
         } else {
             revert InvalidCandidate();
         }
