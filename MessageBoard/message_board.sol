@@ -11,4 +11,8 @@ contract messageBoard {
     function previewMessage(string memory _message) public pure returns (string memory) {
         return string(abi.encodePacked("Draft: ", _message));
     }
+
+    function getMessage() public view returns (string memory) {
+        return messages[msg.sender];
+    }
 }
