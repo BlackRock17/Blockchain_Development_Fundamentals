@@ -19,5 +19,12 @@ contract Voting {
             hasVoted: true,
             choice: _candidateId
         });
+
+        emit VoteRegistered(msg.sender, _candidateId);
+    }
+
+    function getVoterStatus(address _voter) public view returns (bool hasVoted, uint256 choice) {
+        Voter memory voter = voters[_voter];
+        return (voter.hasVoted, voter.choice);
     }
 }
