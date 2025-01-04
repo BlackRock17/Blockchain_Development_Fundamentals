@@ -7,4 +7,8 @@ contract messageBoard {
     function storeMessage(string memory _message) public {
         messages[msg.sender] = _message;
     }
+
+    function previewMessage(string memory _message) public pure returns (string memory) {
+        return string(abi.encodePacked("Draft: ", _message));
+    }
 }
