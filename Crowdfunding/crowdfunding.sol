@@ -43,4 +43,11 @@ contract Crowdfunding {
 
         checkGoalReached();
     }
+
+    function checkGoalReached() public {
+        if(!campaign.goalReached && campaign.totalCollected >= campaign.goalAmound) {
+            campaign.goalReached = true;
+            emit GoalReached(campaign.totalCollected);
+        }
+    }
 }
