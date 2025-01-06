@@ -1,3 +1,23 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
 
+contract DecentralizedSavings {
+
+    struct SavingsAccount {
+        uint256 balance;
+        address owner;
+        uint256 creationTime;
+        uint256 lockPeriod;
+    }
+
+    mapping(address => SavingsAccount[]) private savingsAccounts;
+
+    event SavingsPlanCreated(address indexed owner, uint256 planIndex, uint256 amount, uint256 lockPeriod);
+    event FundsWithdrawn(address indexed owner, uint256 planIndex, uint256 amount);
+
+    modifier onlyPlanOwner(uint256 _planIndex) {
+        require(_planIndex < savingsAccounts[msg.sender].length, "Invalid plan index");
+        require(savingsAccounts[msg.sender][_planIndex].owner == msg.sender, "Not the plan owner");
+        _;
+    }
+}
