@@ -36,4 +36,33 @@ contract DecentralizedSavings {
 
         emit SavingsPlanCreated(msg.sender, savingsAccounts[msg.sender].length - 1, msg.value, _lockPeriod);
     }
+
+    function viewSavingsPlan(uint256 _planIndex)
+        external 
+        view
+        onlyPlanOwner(_planIndex)
+        returns (
+            uint256 balance,
+            address owner,
+            uint256 creationTime,
+            uint256 lockPeriod,
+            bool isLocked,
+            uint256 remainingTime
+        )
+    {
+        SavingsAccount storage plan = savingsAccounts[msg.sender][_planIndex];
+
+        uint256 endTime = plan.creationTime + plan.lockPeriod;
+        bool locked = block.timestamp < endTime;
+        uint256 remaining = locked ? endTime - block.timestamp : 0;
+
+        return (
+            plan.balance,
+            plan.owner,
+            plan.creationTime,
+            plan.lockPeriod,
+            locked,
+            remaining
+        );
+    }
 }
