@@ -83,4 +83,8 @@ contract DecentralizedSavings {
 
         emit FundsWithdrawn(msg.sender, _planIndex, amount);
     }
+
+    function getUserPlansCount() external view returns (uint256) {
+        return savingsAccounts[msg.sender].length;
+    }
 }
