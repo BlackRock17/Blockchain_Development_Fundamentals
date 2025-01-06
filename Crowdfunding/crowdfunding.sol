@@ -31,4 +31,16 @@ contract Crowdfunding {
             fundsClaimed: false
         });
     }
+
+    function contribute() external payable {
+        require(block.timestamp > campaign.endTime, "Campaign has ended");
+        require(msg.value > 0, "Contribution must be greater than 0");
+
+        contributions[msg.sender] += msg.value;
+        campaign.totalCollected += msg.value;
+
+        emit ContributionMade(msg.sender, msg.value);
+
+        checkGoalReached();
+    }
 }
