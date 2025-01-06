@@ -20,4 +20,20 @@ contract DecentralizedSavings {
         require(savingsAccounts[msg.sender][_planIndex].owner == msg.sender, "Not the plan owner");
         _;
     }
+
+    function createSavingsPlan(uint256 _lockPeriod) external payable {
+        require(msg.value > 0, "Must deposit some ether");
+        require(_lockPeriod > 0, "Lock period must be greater than 0");
+
+        SavingsAccount memory newAccount = SavingsAccount({
+            balance: msg.value,
+            owner: msg.sender,
+            creationTime: block.timestamp,
+            lockPeriod: _lockPeriod
+        });
+
+        savingsAccounts[msg.sender].push(newAccount);
+
+        emit SavingsPlanCreated(msg.sender, savingsAccounts[msg.sender].length - 1, msg.value, _lockPeriod);
+    }
 }
