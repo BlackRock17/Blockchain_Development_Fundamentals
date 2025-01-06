@@ -72,4 +72,20 @@ contract Crowdfunding {
 
         return campaign.endTime - block.timestamp;
     }
+
+    function getCampaignStatus() public view returns (
+        uint256 goal,
+        uint256 total,
+        uint256 timeLeft,
+        bool isGoalReached,
+        bool isFundsClaimed
+    ) {
+        return (
+            campaign.goalAmound,
+            campaign.totalCollected,
+            getRemainingTime(),
+            campaign.goalReached,
+            campaign.fundsClaimed
+        );
+    }
 }
