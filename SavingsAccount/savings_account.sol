@@ -65,4 +65,22 @@ contract DecentralizedSavings {
             remaining
         );
     }
+
+    function withdrawFunds(uint256 _planIndex)
+        external
+        onlyPlanOwner(_planIndex)
+    {
+        SavingsAccount storage plan = savingsAccounts[msg.sender][_planIndex];
+
+        require(block.timestamp >= plan.creationTime + plan.lockPeriod, "Funds are still locked");
+        require(plan.balance > 0, "No funds available");
+
+        uint256 amount = plan.balance;
+        plan.balance = 0;
+
+        (bool success, ) = msg.sender.call{value: amount}("");
+        require(success, "Transfer failed");
+
+        emit FundsWithdrawn(msg.sender, _planIndex, amount);
+    }
 }
