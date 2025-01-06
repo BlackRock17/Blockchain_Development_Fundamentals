@@ -50,4 +50,18 @@ contract Crowdfunding {
             emit GoalReached(campaign.totalCollected);
         }
     }
+
+    function withdraw() external {
+        require(block.timestamp >= campaign.endTime, "Campaign is still active");
+        require(!campaign.goalReached, "Goal was reached, cannot withdraw");
+
+        uint256 amount = contributions[msg.sender];
+        require(amount > 0, "No contributions to withdraw");
+
+        contributions[msg.sender] = 0;
+
+        payable(msg.sender).transfer(amount);
+
+        emit RefundClaimed(msg.sender, amount);
+    }
 }
