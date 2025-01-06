@@ -64,4 +64,12 @@ contract Crowdfunding {
 
         emit RefundClaimed(msg.sender, amount);
     }
+
+    function getRemainingTime() public view returns (uint256) {
+        if(block.timestamp > campaign.endTime) {
+            return 0;
+        }
+
+        return campaign.endTime - block.timestamp;
+    }
 }
