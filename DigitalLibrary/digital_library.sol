@@ -143,4 +143,28 @@ contract DigitalLibrary {
         return expired;
     }
 
+    function getEbook(uint256 _ebookId) external view returns (
+        string memory title,
+        string memory author,
+        uint256 publicationDate,
+        uint256 expirationDate,
+        BookStatus status,
+        address primaryLibrarian,
+        uint256 readCount
+    ) {
+        require(ebooks[_ebookId].primaryLibrarian != address(0), "Book does not exist");
+
+        EBook storage book = ebooks[_ebookId];
+
+        return (
+            book.title,
+            book.author,
+            book.publicationDate,
+            book.expirationDate,
+            book.status,
+            book.primaryLibrarian,
+            book.readCount
+        );
+    }
+
 }
