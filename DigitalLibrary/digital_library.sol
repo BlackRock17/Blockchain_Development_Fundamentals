@@ -31,4 +31,33 @@ contract DigitalLibrary {
     event ExpirationExtended(uint256 indexed ebookId, uint256 newExpirationDate);
     event StatusChanged(uint256 indexed ebookId, BookStatus newStatus);
 
+    function createEbook(
+        string calldata _title,
+        string calldata _author,
+        uint256 _publicationDate
+    ) external returns (uint256) {
+
+        uint256 newEbookID = nextEbookID;
+        
+        uint256 expirationDate = block.timestamp + 180 days;
+
+        ebooks[newEbookID] = EBook({
+            title: _title,
+            author: _author,
+            publicationDate: _publicationDate,
+            expirationDate: expirationDate,
+            status: BookStatus.Active,
+            primaryLibrarian: msg.sender,
+            readCount: 0
+        });
+
+        authorizedLibrarians[newEbookID][msg.sender] = true;
+
+        nextEbookID++;
+
+        emit EBookCreated(newEbookID, _title, msg.sender);
+
+        return newEbookID;
+    }
+
 }
