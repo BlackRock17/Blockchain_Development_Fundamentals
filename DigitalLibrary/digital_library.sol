@@ -167,4 +167,14 @@ contract DigitalLibrary {
         );
     }
 
+    function getRemainingTime(uint256 _ebookId) external view returns (uint256) {
+        require(ebooks[_ebookId].primaryLibrarian != address(0), "Book does not exist");
+
+        if (block.timestamp >= ebooks[_ebookId].expirationDate) {
+            return 0;
+        }
+
+        return ebooks[_ebookId].expirationDate - block.timestamp;
+    }
+
 }
