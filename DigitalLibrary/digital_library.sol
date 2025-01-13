@@ -75,4 +75,8 @@ contract DigitalLibrary {
         emit LibrarianAdded(_ebookID, _librarian);
     }
 
+    function isAuthorizedLibrarian(uint256 _ebookID, address _librarian) public view returns (bool) {
+        return authorizedLibrarians[_ebookID][_librarian];
+    }
+
 }
