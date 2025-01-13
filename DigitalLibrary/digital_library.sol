@@ -122,4 +122,25 @@ contract DigitalLibrary {
         emit StatusChanged(_ebookId, _newStatus);
     }
 
+    function checkExpiration(uint256 _ebookId) external returns (bool isExpired) {
+
+        require(ebooks[_ebookId].primaryLibrarian != address(0), "Book does not exist");
+
+        ebooks[_ebookId].readCount++;
+
+        require(
+            ebooks[_ebookId].status != BookStatus.Archived,
+            "Book is archived"
+        );
+
+        bool expired = block.timestamp > ebooks[_ebookId].expirationDate;
+
+        if (expired && ebooks[_ebookId].status == BookStatus.Active) {
+            ebooks[_ebookId].status = BookStatus.Outdated;
+            emit StatusChanged(_ebookId, BookStatus.Outdated);
+        }
+
+        return expired;
+    }
+
 }
