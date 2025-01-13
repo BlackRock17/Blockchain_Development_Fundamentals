@@ -60,4 +60,19 @@ contract DigitalLibrary {
         return newEbookID;
     }
 
+    function addLibrariran(uint256 _ebookID, address _librarian) external {
+
+        require(ebooks[_ebookID].primaryLibrarian != address(0), "Book does not exist");
+
+        require(msg.sender == ebooks[_ebookID].primaryLibrarian, "Only primary librarian can add new librarians");
+
+        require(_librarian != address(0), "Invalid librarian address");
+
+        require(!authorizedLibrarians[_ebookID][_librarian], "Librarian already authorized");
+
+        authorizedLibrarians[_ebookID][_librarian] = true;
+
+        emit LibrarianAdded(_ebookID, _librarian);
+    }
+
 }
