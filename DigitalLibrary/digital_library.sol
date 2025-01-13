@@ -79,4 +79,26 @@ contract DigitalLibrary {
         return authorizedLibrarians[_ebookID][_librarian];
     }
 
+    function extendExpirationDate(uint256 _ebookId, uint256 _daysToExtend) external {
+
+         require(ebooks[_ebookId].primaryLibrarian != address(0), "Book does not exist");
+
+         require(
+            isAuthorizedLibrarian(_ebookId, msg.sender),
+            "Only authorized librarian can extend expiration"
+        );
+
+        require(_daysToExtend <= 365, "Cannot extend for more than 365 days");
+
+        uint256 newExpirationDate = ebooks[_ebookId].expirationDate + (_daysToExtend * 1 days);
+
+        ebooks[_ebookId].expirationDate = newExpirationDate;
+
+        if (ebooks[_ebookId].status == BookStatus.Outdated) {
+            ebooks[_ebookId].status = BookStatus.Active;
+        }
+
+        emit ExpirationExtended(_ebookId, newExpirationDate);
+    }
+
 }
