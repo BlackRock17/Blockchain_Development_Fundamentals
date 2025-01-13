@@ -101,4 +101,25 @@ contract DigitalLibrary {
         emit ExpirationExtended(_ebookId, newExpirationDate);
     }
 
+    function changeStatus(uint256 _ebookId, BookStatus _newStatus) external {
+        
+        require(ebooks[_ebookId].primaryLibrarian != address(0), "Book does not exist");
+
+        require(
+            msg.sender == ebooks[_ebookId].primaryLibrarian,
+            "Only primiry librarian can change status"
+        );
+
+        if (_newStatus == BookStatus.Active) {
+            require(
+                ebooks[_ebookId].expirationDate > block.timestamp,
+                "Cannot set to Active if expiration date is passed"
+                );
+        }
+
+        ebooks[_ebookId].status = _newStatus;
+
+        emit StatusChanged(_ebookId, _newStatus);
+    }
+
 }
