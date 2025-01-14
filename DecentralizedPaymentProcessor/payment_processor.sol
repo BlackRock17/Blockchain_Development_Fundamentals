@@ -19,4 +19,15 @@ contract PaymentProcessor {
 
         return balances[msg.sender];
     }
+
+    function refundPayment(uint256 amount) public virtual {
+
+        require(balances[msg.sender] >= amount, "Insufficient balance");
+        require(amount > 0, "Refund amount must be greater than 0");
+
+        balances[msg.sender] -= amount;
+        payable(msg.sender).transfer(amount);
+
+        emit RefundProcessed(msg.sender, amount);
+    }
 }
