@@ -14,4 +14,9 @@ contract PaymentProcessor {
         balances[msg.sender] += msg.value;
         emit PaymentReceived(msg.sender, msg.value);
     }
+
+    function checkBalance() public view returns (uint256) {
+
+        return balances[msg.sender];
+    }
 }
