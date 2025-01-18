@@ -11,6 +11,11 @@ contract Asset {
         string memory _symbol,
         string memory _name,
         uint256 _initialSuplly
-    )
+    ) {
+        symbol = _symbol;
+        name = _name;
+        totalSupply = _initialSuplly;
+        balances[msg.sender] = _initialSuplly;
+    }
 
 }
