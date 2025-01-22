@@ -27,4 +27,21 @@ contract AssetFactory {
         require(assets[_symbol] != address(0), "Asset does not exist");
         return assets[_symbol];
     }
+
+    function transferAsset(
+        string memory _symbol,
+        address _to,
+        uint256 _amount
+    ) external returns (bool) {
+        require(assets[_symbol] != address(0), "Asset does not exist");
+
+        Asset asset = Asset(assets[_symbol]);
+        bool success = asset.transfer(_to, _amount);
+
+        if (success) {
+            emit TransferExecuted(_symbol, msg.sender, _to, _amount);
+        }
+
+        return success;
+    }
 }
