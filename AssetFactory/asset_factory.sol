@@ -23,7 +23,8 @@ contract Asset {
         require(_to != address(0), "Invalid recipient address");
 
         balances[msg.sender] -= _amount;
-        
+        balances[_to] += _amount;
+        return true;
     }
 
 }
