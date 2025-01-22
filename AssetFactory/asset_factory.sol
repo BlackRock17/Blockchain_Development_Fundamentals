@@ -18,4 +18,12 @@ contract Asset {
         balances[msg.sender] = _initialSuplly;
     }
 
+    function transfer(address _to, uint256 _amount) external returns (bool) {
+        require(balances[msg.sender] >= _amount, "Insuffisient balance");
+        require(_to != address(0), "Invalid recipient address");
+
+        balances[msg.sender] -= _amount;
+        
+    }
+
 }
