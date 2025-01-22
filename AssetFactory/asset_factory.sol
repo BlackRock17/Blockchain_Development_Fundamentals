@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity 0.8.28;
 
-import "./asset.sol"
+import "./asset.sol";
 
 contract AssetFactory {
     mapping(string => address) public assets;
@@ -21,5 +21,10 @@ contract AssetFactory {
 
         emit AssetCreated(_symbol, address(newAsset));
         return address(newAsset);
+    }
+
+    function getAssetAddress(string memory _symbol) external view returns (address) {
+        require(assets[_symbol] != address(0), "Asset does not exist");
+        return assets[_symbol];
     }
 }
