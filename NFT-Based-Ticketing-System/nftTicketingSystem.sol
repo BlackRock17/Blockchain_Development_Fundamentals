@@ -22,4 +22,15 @@ contract EventTicketNFT is ERC721, Ownable {
     event TicketMinted(address indexed to, uint256 indexed tokenId, string eventName, string seatNumber);
     event TicketTransferred(address indexed from, address indexed to, uint256 indexed tokenId);
     event TransfererStatusUpdated(address indexed transferer, bool status);
+
+    constructor() ERC721("EventTicketNFT", "ETN") {}
+
+    function mintTicket(
+        address to,
+        string memory eventName,
+        uint256 eventDate,
+        string memory seatNumber
+    ) public onlyOwner returns (uint256) {
+        
+    }
 }
