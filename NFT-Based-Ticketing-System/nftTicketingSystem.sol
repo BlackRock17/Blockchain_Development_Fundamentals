@@ -19,5 +19,7 @@ contract EventTicketNFT is ERC721, Ownable {
     mapping(uint256 => TicketMetadata) private _TicketMetadata;
     mapping(address => bool) private _aprrovedTransferers;
 
-    
+    event TicketMinted(address indexed to, uint256 indexed tokenId, string eventName, string seatNumber);
+    event TicketTransferred(address indexed from, address indexed to, uint256 indexed tokenId);
+    event TransfererStatusUpdated(address indexed transferer, bool status);
 }
