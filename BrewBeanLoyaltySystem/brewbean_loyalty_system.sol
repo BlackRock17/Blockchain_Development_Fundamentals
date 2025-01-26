@@ -11,3 +11,8 @@ interface ILoyaltyPoints {
 
     event Redeemed(address indexed customer, uint256 amount);
 }
+
+abstract contract BaseLoyaltyProgram is ILoyaltyPoints {
+
+    mapping(address => bool) public partners;
+}
