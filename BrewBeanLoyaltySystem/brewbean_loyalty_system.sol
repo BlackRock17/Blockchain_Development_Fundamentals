@@ -27,3 +27,11 @@ abstract contract BaseLoyaltyProgram is ILoyaltyPoints {
         return true;
     }
 }
+
+import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
+
+contract BrewBeanPoints is ERC20, BaseLoyaltyProgram {
+    constructor() ERC20("BrewBean Points", "BBP") {
+        partners[msg.sender] = true;
+    }
+}
