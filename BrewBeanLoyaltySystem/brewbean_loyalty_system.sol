@@ -20,4 +20,10 @@ abstract contract BaseLoyaltyProgram is ILoyaltyPoints {
         require(partners[msg.sender], "Not authorized partner");
         _;
     }
+
+    function _authorizeReward(address customer, uint256 amount) internal virtual returns (bool) {
+        require(customer != address(0), "Invalid customer address");
+        require(amount > 0, "Amount must be positive");
+        return true;
+    }
 }
