@@ -15,4 +15,9 @@ interface ILoyaltyPoints {
 abstract contract BaseLoyaltyProgram is ILoyaltyPoints {
 
     mapping(address => bool) public partners;
+
+    modifier onlyPartner() {
+        require(partners[msg.sender], "Not authorized partner");
+        _;
+    }
 }
