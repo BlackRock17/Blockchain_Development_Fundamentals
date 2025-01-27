@@ -38,4 +38,11 @@ contract BrewBeanPoints is ERC20, BaseLoyaltyProgram {
     function addPartner(address partner) external onlyPartner {
         partners[partner] = true;
     }
+
+    function rewardPoints(address customer, uint256 amount) external override onlyPartner returns (bool) {
+        require(_authorizeReward(customer, amount), "Reward not authorized");
+        _mint(customer, amount);
+        emit Rewarded(customer, amount);
+        return true;
+    }
 }
