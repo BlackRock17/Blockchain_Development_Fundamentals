@@ -34,4 +34,8 @@ contract BrewBeanPoints is ERC20, BaseLoyaltyProgram {
     constructor() ERC20("BrewBean Points", "BBP") {
         partners[msg.sender] = true;
     }
+
+    function addPartner(address partner) external onlyPartner {
+        partners[partner] = true;
+    }
 }
