@@ -27,4 +27,9 @@ contract CollectibleCardLibrary {
         // Emit an event for the added card
         emit CardAdded(msg.sender, id, name);
     }
+
+    // Function to view the cards in the collection
+    function viewCollection() public view returns (Card[] memory) {
+        return collections[msg.sender];
+    }
 }
