@@ -32,4 +32,9 @@ contract CollectibleCardLibrary {
     function viewCollection() public view returns (Card[] memory) {
         return collections[msg.sender];
     }
+
+    // Function to check if a card exists
+    function checkCardExists(uint256 id) public view returns (bool) {
+        return collections[msg.sender].exists(id);
+    }
 }
