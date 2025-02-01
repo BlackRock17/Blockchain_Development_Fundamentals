@@ -62,4 +62,8 @@ contract CollectibleCardLibrary {
     function checkCardExists(uint256 id) public view returns (bool) {
         return collections[msg.sender].exists(id);
     }
+
+    function isOwner() public view returns (bool) {
+        return msg.sender == owner;
+    }
 }
