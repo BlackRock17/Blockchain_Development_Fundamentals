@@ -40,6 +40,19 @@ contract CollectibleCardLibrary {
         emit CardAdded(msg.sender, id, name);
     }
 
+    function removeCardAt(uint256 index) public onlyOwner {
+        Card[] storage userCards = collections[msg.sender];
+        require(index < userCards.length, "Index out of bounds");
+        
+        // We save the card information before removing it (for the event)
+        Card memory removedCard = userCards[index];
+        
+        // We use the removeAt function from the library
+        userCards.removeAt(index);
+        
+        emit CardRemoved(msg.sender, removedCard.id, removedCard.name);
+    }
+
     // Function to view the cards in the collection
     function viewCollection() public view returns (Card[] memory) {
         return collections[msg.sender];
