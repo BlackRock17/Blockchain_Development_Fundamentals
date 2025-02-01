@@ -6,9 +6,16 @@ import "./CardLibrary.sol";
 contract CollectibleCardLibrary {
     using CardLibrary for Card[];
 
+    address private immutable owner;
+
     mapping(address => Card[]) private collections;
 
     event CardAdded(address indexed owner, uint256 id, string name);
+    event CardRemoved(address indexed owner, uint256 id, string name);
+
+    constructor() {
+        owner = msg.sender;
+    }
 
     function addCard(uint256 id, string memory name) public {
        // Check if the card already exists in the user's collection
