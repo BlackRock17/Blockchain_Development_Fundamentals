@@ -16,4 +16,20 @@ library CardLibrary {
         }
         return false;
     }
+
+    function removeAt(Card[] storage cards, uint256 index) internal {
+        
+        require(index < cards.length, "Index out of bounds");
+        
+        
+        if (index == cards.length - 1) {
+            cards.pop();
+            return;
+        }
+        
+        
+        cards[index] = cards[cards.length - 1];
+        
+        cards.pop();
+    }
 }
