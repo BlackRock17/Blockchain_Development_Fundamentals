@@ -17,6 +17,11 @@ contract CollectibleCardLibrary {
         owner = msg.sender;
     }
 
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Only the owner can call this function");
+        _;
+    }
+
     function addCard(uint256 id, string memory name) public {
        // Check if the card already exists in the user's collection
         require(!collections[msg.sender].exists(id), "Card with this ID already exists in your collection");
