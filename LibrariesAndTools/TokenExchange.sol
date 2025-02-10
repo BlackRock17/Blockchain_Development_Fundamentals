@@ -42,4 +42,9 @@ contract TokenExchange {
         emit TokensTraded(msg.sender, amount);
     }
 
+    // Helper function for checking SoftCoin balance
+     function getSoftCoinBalance(address account) public view returns (uint256) {
+        return softCoin.balanceOf(account);
+    }
+
 }
