@@ -47,4 +47,8 @@ contract TokenExchange {
         return softCoin.balanceOf(account);
     }
 
+    // Helper function for checking UniCoin balance
+    function getUniCoinBalance(address account) public view returns (uint256) {
+        return uniCoin.balanceOf(account);
+    }
 }
