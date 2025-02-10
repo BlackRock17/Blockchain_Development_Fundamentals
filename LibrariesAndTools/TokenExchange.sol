@@ -18,4 +18,28 @@ contract TokenExchange {
         uniCoin = UniCoin(_uniCoinAddress);
     }
 
+    function trade(uint256 amount) public {
+        require(amount > 0, "Amount must be greater than 0");
+        
+        // Check if the merchant has enough SoftCoin
+        require(
+            softCoin.balanceOf(msg.sender) >= amount,
+            "Insufficient SoftCoin balance"
+        );
+        
+        // Transfer SoftCoin to this contract
+        require(
+            softCoin.transferFrom(msg.sender, address(this), amount),
+            "SoftCoin transfer failed"
+        );
+        
+        // Calculate the amount of UniCoin to mint
+        uint256 uniCoinAmount = amount * EXCHANGE_RATE;
+        
+        // Mint UniCoin to the merchant
+        uniCoin.mint(msg.sender, uniCoinAmount);
+        
+        emit TokensTraded(msg.sender, amount);
+    }
+
 }
